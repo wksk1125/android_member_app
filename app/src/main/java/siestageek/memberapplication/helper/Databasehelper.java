@@ -8,12 +8,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Databasehelper extends SQLiteOpenHelper {
 
     // 데이터베이스 초기화 변수
     // Device Explorer >> data >> data >> 앱 >> databases
     private static final String DBNAME = "android.db";
     private static final int DBVERSION = 1;
+    public List<String> getAllusers;
 
 
     // 생성자 - 클래스 호출시 자동으로 sqlite DB 파일 생성 (한번만!)
@@ -80,5 +84,39 @@ public class Databasehelper extends SQLiteOpenHelper {
         db.close();
 
         return exists;
+    }
+
+    // 회원 목록 조회 메서드
+    public List<String> getAllUsers(){
+        // 변수 초기화
+        String sql = "select userid, name, email from member";
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<String> userList = new ArrayList<>();
+
+        // 쿼리 실행
+        Cursor cur = db.rawQuery(sql, null);
+
+        // 결과
+        if(cur.moveToFirst()){ // 읽어올 데이터가 존재한다면
+            do{
+                // 커서로부터 데이터 가져오기
+                String userid = cur.getString(0);
+                String name = cur.getString(1);
+                String email = cur.getString(2);
+
+                // 가져온 데이터들을 문자열로 조합
+                String userinfo = "아이디 : " + userid + "\n"
+                        + "이름 : " + name + "\n"
+                        + "이메일 : " + email;
+                // 조합한 문자열을 동적배열에 저장
+                userList.add(userinfo);
+            }while (cur.moveToNext()); // 다음 데이터를 읽어옴
+
+        }
+        // DB 연결 해제
+        cur.close();
+        db.close();
+
+        return userList;
     }
 }
