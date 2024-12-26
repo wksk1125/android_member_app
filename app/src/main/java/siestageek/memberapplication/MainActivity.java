@@ -1,5 +1,6 @@
 package siestageek.memberapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
@@ -54,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
+        // 회원조회 이벤트
+        buttonUserlist.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        // UserListActivity를 뷰에 표시
+                        Intent intent = new Intent(MainActivity.this, UserlistActivity.class);
+                        startActivity(intent);
+                    }
+                }
+        );
     }
 
     private void registarUser() {
