@@ -65,10 +65,14 @@ public class MainActivity extends AppCompatActivity {
         // 입력값 검증
         if (userid.isEmpty() || passwd.isEmpty() || email.isEmpty() || name.isEmpty()){
             Toast.makeText(this, "모든 필드를 입력하세요!", Toast.LENGTH_SHORT).show();
+            return; // 여기서 중지
         }
 
         // 중복 아이디 체크
-
+        if (databasehelper.useridCheck(userid)){
+            Toast.makeText(this, "이미 사용중인 아이디입니다.", Toast.LENGTH_SHORT).show();
+            return; // 여기서 중지
+        }
         // 회원 저장
         boolean success = databasehelper.inserMember(userid, passwd, name, email);
         if(success){
