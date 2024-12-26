@@ -1,5 +1,6 @@
 package siestageek.memberapplication.helper;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -37,4 +38,27 @@ public class Databasehelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists member");
         onCreate(db);
     }
+
+    // 회원 가입 처리
+    public boolean inserMember(String userid, String passwd, String name, String email,){
+        // 데이블에 레코드를 저장하기위해 초기화
+        SQLiteDatabase db = this.getWritableDatabase();
+        // 저장할 데이터를 컨테이너로 생성
+        ContentValues values = new ContentValues();
+        values.put("userid", userid);
+        values.put("passwd", passwd);
+        values.put("name", name);
+        values.put("email", email);
+
+        // 테이블에 데이터 저장
+        long result = db.insert("member", null, values);
+
+        // DB 연결 해제
+        db.close();
+
+        // 저장 성공 여부 리턴
+        return result != -1;
+    }
+
+    // 아이디 중복 확인
 }
