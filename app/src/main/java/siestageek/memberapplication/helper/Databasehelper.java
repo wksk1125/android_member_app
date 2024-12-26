@@ -2,6 +2,7 @@ package siestageek.memberapplication.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -10,6 +11,7 @@ import androidx.annotation.Nullable;
 public class Databasehelper extends SQLiteOpenHelper {
 
     // 데이터베이스 초기화 변수
+    // Device Explorer >> data >> data >> 앱 >> databases
     private static final String DBNAME = "android.db";
     private static final int DBVERSION = 1;
 
@@ -61,4 +63,22 @@ public class Databasehelper extends SQLiteOpenHelper {
     }
 
     // 아이디 중복 확인
+    public boolean useridCheck(String userid) {
+        // 아이디 중복체크를 위해 sqlite 초기화
+        SQLiteDatabase db = this.getReadableDatabase();
+        // 커서 초기화
+        // select mno from member where userid = ?
+        // query(table, colums, select, groupby, having, orderby)
+        Cursor cur = db.query("member", new String[]{"mno"},
+                "userid=?", new String[]{userid},
+                null, null, null);
+        // 조회결과 확인
+        boolean exists = cur.getCount() > 0;
+
+        // DB 연결 해제
+        cur.close();
+        db.close();
+
+        return exists;
+    }
 }
