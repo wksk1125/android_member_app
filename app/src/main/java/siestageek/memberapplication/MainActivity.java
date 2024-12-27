@@ -16,13 +16,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import siestageek.memberapplication.helper.Databasehelper;
+import siestageek.memberapplication.helper.MainDBHelper;
 
 public class MainActivity extends AppCompatActivity {
 
     // 변수선언
     private EditText editTextUserid, editTextPasswd, editTextName, editTextEmail;
     private Button buttonJoin, buttonUserlist;
-    private Databasehelper databasehelper;
+    //private Databasehelper databasehelper;
+    private MainDBHelper mariaDBHelper;
 
     // SharedPreferences : 경량 데이터 저장하기 위한 내부 객체
     //
@@ -48,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
         buttonUserlist = findViewById(R.id.buttonUserlist);
 
         // 데이터베이스 헬퍼 초기화
-        databasehelper = new Databasehelper(this);
+        //databasehelper = new Databasehelper(this);
+        mariaDBHelper = new MainDBHelper();
 
         // sharePreferences 초기화
         // MODE_PRIVATE : 특정 앱만 접근 가능하도록 설정
@@ -99,12 +102,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 중복 아이디 체크
-        if (databasehelper.useridCheck(userid)){
+        //if (databasehelper.useridCheck(userid)){
+        if (mariaDBHelper.useridCheck(userid)){
             Toast.makeText(this, "이미 사용중인 아이디입니다.", Toast.LENGTH_SHORT).show();
             return; // 여기서 중지
         }
         // 회원 저장
-        boolean success = databasehelper.inserMember(userid, passwd, name, email);
+        //boolean success = databasehelper.inserMember(userid, passwd, name, email);
+        boolean success = mariaDBHelper.insertMember(userid, passwd, name, email);
         if(success){
             Toast.makeText(this, "✨회원 가입 성공!✨", Toast.LENGTH_SHORT).show();
         } else {
