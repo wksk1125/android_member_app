@@ -1,6 +1,7 @@
 package siestageek.memberapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
@@ -22,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextUserid, editTextPasswd, editTextName, editTextEmail;
     private Button buttonJoin, buttonUserlist;
     private Databasehelper databasehelper;
+
+    // SharedPreferences : 경량 데이터 저장하기 위한 내부 객체
+    //
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
         // 데이터베이스 헬퍼 초기화
         databasehelper = new Databasehelper(this);
 
+        // sharePreferences 초기화
+        // MODE_PRIVATE : 특정 앱만 접근 가능하도록 설정
+        sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+
         // 회원가입 이벤트 처리
         buttonJoin.setOnClickListener(
                 new View.OnClickListener(){
@@ -60,9 +69,17 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        // UserListActivity를 뷰에 표시
-                        Intent intent = new Intent(MainActivity.this, UserlistActivity.class);
-                        startActivity(intent);
+                        // 로그인 관련 변수 가져오기
+                        // getBoolean (키, 기본값)
+                        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+                        if(isLoggedIn){ // 로그인 했다면 UserListActivity를 뷰에 표시
+                            /*Intent intent = new Intent(MainActivity.this, UserlistActivity.class);
+                            startActivity(intent);*/
+                            Toast.makeText(MainActivity.this, "UserlistActivity 표시", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "LoginActivity 표시", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
                 }
         );
