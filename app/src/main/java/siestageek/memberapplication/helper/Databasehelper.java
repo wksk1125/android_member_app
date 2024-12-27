@@ -94,6 +94,7 @@ public class Databasehelper extends SQLiteOpenHelper {
         List<String> userList = new ArrayList<>();
 
         // 쿼리 실행
+        // rawQuery (질의문, 매개변수)
         Cursor cur = db.rawQuery(sql, null);
 
         // 결과
@@ -118,5 +119,22 @@ public class Databasehelper extends SQLiteOpenHelper {
         db.close();
 
         return userList;
+    }
+
+    // 로그인 확인
+    public boolean loginUser(String userid, String passwd){
+        String sql = "SELECT name FROM member WHERE userid = ? AND passwd = ?";
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] params = new String[]{};
+        Cursor cur = db.rawQuery(sql, params);
+
+        // 결과 확인
+        boolean isLoggedIn = cur.getCount() > 0;
+
+        // DB 연결 해제
+        cur.close();
+        db.close();
+
+        return isLoggedIn;
     }
 }
