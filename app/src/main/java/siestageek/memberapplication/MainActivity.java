@@ -17,7 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import siestageek.memberapplication.helper.Databasehelper;
-import siestageek.memberapplication.helper.MainDBHelper;
+import siestageek.memberapplication.helper.MariaDBHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextUserid, editTextPasswd, editTextName, editTextEmail;
     private Button buttonJoin, buttonUserlist;
     //private Databasehelper databasehelper;
-    private MainDBHelper mariaDBHelper;
+    private MariaDBHelper mariaDBHelper;
 
     // SharedPreferences : 경량 데이터 저장하기 위한 내부 객체
     //
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 데이터베이스 헬퍼 초기화
         //databasehelper = new Databasehelper(this);
-        mariaDBHelper = new MainDBHelper();
+        mariaDBHelper = new MariaDBHelper();
 
         // sharePreferences 초기화
         // MODE_PRIVATE : 특정 앱만 접근 가능하도록 설정

@@ -8,7 +8,7 @@ import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MainDBHelper {
+public class MariaDBHelper {
 /*    create table member (
             mno int primary key auto_increment,
             userid varchar(18) unique,
