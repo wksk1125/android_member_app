@@ -15,6 +15,13 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        // 빌드 설정 3
+        // bulidConfig
+        buildConfigField "String", "DB_URL", DB_URL
+        buildConfigField "String", "DB_USR", DB_USR
+        buildConfigField "String", "DB_PWD", DB_PWD
+
+
     }
 
     buildTypes {
@@ -34,6 +41,12 @@ android {
         exclude 'META-INF/AL2.0'
         exclude 'META-INF/LGPL2.1'
     }
+
+    // 빌드 설정 2
+    buildFeatures {
+        buildConfig = true
+    }
+
 }
 
 dependencies {
