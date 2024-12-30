@@ -14,6 +14,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -26,6 +27,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
+    // MariaDB 앱 빌드시 오류 유발 방지
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
+    }
 }
 
 dependencies {
@@ -37,4 +45,6 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.2'
 }

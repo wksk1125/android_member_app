@@ -125,7 +125,7 @@ public class Databasehelper extends SQLiteOpenHelper {
     public boolean loginUser(String userid, String passwd){
         String sql = "SELECT name FROM member WHERE userid = ? AND passwd = ?";
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] params = new String[]{};
+        String[] params = new String[]{userid, passwd};
         Cursor cur = db.rawQuery(sql, params);
 
         // 결과 확인

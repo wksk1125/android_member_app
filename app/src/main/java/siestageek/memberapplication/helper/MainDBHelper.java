@@ -9,9 +9,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class MainDBHelper {
-    private static final String DB_USER = "";
-    private static final String DB_PWD = "";
-    private static final String DB_URL = "";
+/*    create table member (
+            mno int primary key auto_increment,
+            userid varchar(18) unique,
+            passwd varchar(18) not null,
+            name varchar(18) not null,
+            email text not null,
+            regdate datetime default current_timestamp());*/
+    private static final String DB_URL = "jdbc:mariadb://43.200.7.165/clouds2024";
+    private static final String DB_USER = "clouds2024";
+    private static final String DB_PWD = "clouds2024";
     private static final String DB_NAME = "clouds2024";
 
     //MariaDB Driver 초기화
