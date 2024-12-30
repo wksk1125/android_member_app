@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             return; // 여기서 중지
         }
 
-        // 중복 아이디 체크
+        /*// 중복 아이디 체크
         //if (databasehelper.useridCheck(userid)){
         if (mariaDBHelper.useridCheck(userid)){
             Toast.makeText(this, "이미 사용중인 아이디입니다.", Toast.LENGTH_SHORT).show();
@@ -120,7 +120,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "✨회원 가입 성공!✨", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "💥회원 가입 실패, 다시 시도해주세요.💥", Toast.LENGTH_SHORT).show();
-        }
+        }*/
+
+        // 기존 코드 삭제 - RegisterUserTask 에서 재작성했기 때문
+        // 기존코드는 비동기처리를 위해 다음과 같이 호출
+        new RegistarUserTesk().execute(userid, passwd, name, email);
     }
 
     // AsyncTask 처리를 위한 비동기 처리 클래스
